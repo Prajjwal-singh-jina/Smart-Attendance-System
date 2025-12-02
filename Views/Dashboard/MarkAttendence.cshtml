@@ -1,0 +1,75 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Attendance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light text-center p-5">
+
+    <div class="card mx-auto shadow" style="max-width: 500px;">
+        <div class="card-header bg-primary text-white">
+            <h3>Face Attendance</h3>
+        </div>
+        <div class="card-body">
+
+            <input type="number" id="rollNo" class="form-control mb-3" placeholder="Enter Roll Number">
+
+            <video id="video" autoplay style="width: 100%; border-radius: 10px; border: 2px solid #ccc;"></video>
+            <canvas id="canvas" style="display:none;"></canvas>
+
+            <br /><br />
+            <button onclick="scanFace()" class="btn btn-success w-100">SCAN & MARK</button>
+
+            <h4 id="status" class="mt-3"></h4>
+        </div>
+    </div>
+
+    <script>
+        // Start Camera
+        const video = document.getElementById('video');
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => video.srcObject = stream);
+
+        function scanFace() {
+            const rollNo = document.getElementById('rollNo').value;
+            const status = document.getElementById('status');
+
+            if(!rollNo) { alert("Enter Roll Number first!"); return; }
+
+            status.innerText = "Verifying...";
+            status.className = "mt-3 text-warning";
+
+            // Capture Frame
+            const canvas = document.getElementById('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+
+            // Convert to File and Send
+            canvas.toBlob(blob => {
+                const formData = new FormData();
+                formData.append('studentId', rollNo);
+                formData.append('liveImage', blob, 'scan.jpg');
+
+                fetch('/Dashboard/MarkAttendence', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    status.innerText = data.message;
+                    if(data.success) {
+                        status.className = "mt-3 text-success fw-bold";
+                    } else {
+                        status.className = "mt-3 text-danger fw-bold";
+                    }
+                });
+            }, 'image/jpeg');
+        }
+    </script>
+</body>
+</html>

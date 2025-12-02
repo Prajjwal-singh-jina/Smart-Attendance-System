@@ -1,0 +1,34 @@
+﻿(function () {
+    'use strict';
+
+    angular
+        .module('app')
+        .controller('ignore', ignore);
+
+    ignore.$inject = ['$location'];
+
+    function ignore($location) {
+        /* jshint validthis:true */
+        var vm = this;
+        vm.title = 'ignore';
+
+        activate();
+
+        function activate() { }
+    }
+})();
+# .NET Junk
+bin/
+obj/
+.vs/
+*.user
+
+# Python Junk
+__pycache__/
+*.pyc
+venv/
+.env
+
+# Images (Optional: Keep this if you want to share sample photos, remove if they are private)
+wwwroot/temp_scans/
+wwwroot/tempLive/

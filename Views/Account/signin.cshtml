@@ -1,0 +1,191 @@
+﻿@{
+    ViewData["Title"] = "Sign In";
+    // THIS IS THE FIX: It tells the page NOT to use the master layout file.
+    Layout = null;
+}
+@model Sign_up
+
+<!DOCTYPE html>
+ <!-- Because Layout is null, you MUST include your own html, head, and body tags. -->
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Student Attendance System</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+    <style>
+        /* Sets a clean, professional background color and centers content */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f8f9fa; /* Light grey background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* The main container for the sign-in form */
+        .signin-container {
+            max-width: 420px;
+            width: 100%;
+        }
+
+        /* The card provides the white box with shadow and rounded corners */
+        .signin-card {
+            padding: 2rem 2.5rem;
+            border-radius: 1rem;
+            border: none;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+        .signin-card-title {
+            font-weight: 700;
+            color: #343a40;
+        }
+
+        .signin-card-subtitle {
+            color: #6c757d;
+            margin-bottom: 2rem;
+        }
+
+        /* Styling for the input fields with icons */
+        .form-group {
+            position: relative; /* Needed for positioning the icon */
+        }
+
+        .form-control-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #adb5bd;
+        }
+
+        .form-control {
+            padding-left: 2.75rem; /* Make space for the icon */
+            height: 50px;
+            border-radius: 0.5rem;
+        }
+
+        /* Custom styling for the primary sign-in button */
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            font-weight: 600;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+
+        /* Styling for links like "Forgot Password?" */
+        .form-text-links a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .form-text-links a:hover {
+                text-decoration: underline;
+            }
+        /* Step 1: Prepare the body tag */
+        body {
+            position: relative; /* Needed to anchor the background image */
+            overflow: hidden; /* Prevents scrollbars from the background */
+        }
+
+            /* Step 2: Create the background image layer */
+            body::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: -1; /* Puts this layer BEHIND your content */
+                /* This is where you set the image */
+                background-image: url(https://leadschool.in/wp-content/uploads/2023/05/banner-3.png);
+                /* These properties make the image look good */
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+
+            /* Step 3 (Optional but Recommended): Create the dark overlay */
+            body::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: -1;
+                background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+            }
+   
+    </style>
+</head>
+<body>
+
+    <div class="signin-container">
+        <div class="card signin-card">
+            <div class="card-body">
+
+                <!-- Header -->
+                <div class="text-center mb-4">
+                    <h2 class="signin-card-title">Welcome Back!</h2>
+                    <p class="signin-card-subtitle">Sign in to continue to the system</p>
+                </div>
+
+                <!-- Sign-in Form -->
+                <form asp-controller="Account" asp-action="signin" method="post">
+
+                    <!-- Email Input -->
+                    <div class="form-group mb-3">
+                        <i class="bi bi-envelope-fill form-control-icon"></i>
+                        <input asp-for="Email"  class="form-control" id="email"  placeholder="Enter your email" required />
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="form-group mb-3">
+                        <i class="bi bi-lock-fill form-control-icon"></i>
+                        <input asp-for="Password" class="form-control" placeholder="Enter your password" required />
+                    </div>
+
+                    <!-- Remember Me and Forgot Password -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">
+                                Remember me
+                            </label>
+                        </div>
+                        <div class="form-text-links">
+                            <a href="#">Forgot password?</a>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary w-100">Sign In</button>
+
+                    <!-- Link to Sign Up -->
+                    <div class="text-center mt-4 form-text-links">
+                        <p class="text-muted mb-0">Don't have an account? <a asp-controller="Account" asp-action="signup">Sign up</a></p>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

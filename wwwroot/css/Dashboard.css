@@ -1,0 +1,151 @@
+﻿body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 260px;
+    z-index: 100;
+    padding: 48px 0 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.main-content {
+    margin-left: 260px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+/* Sidebar Navigation */
+.sidebar .nav-link {
+    font-weight: 500;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+    .sidebar .nav-link .bi {
+        margin-right: 1rem;
+        font-size: 1.2rem;
+        color: #6c757d;
+        transition: color 0.2s ease;
+    }
+
+    .sidebar .nav-link:hover {
+        background-color: #e9ecef;
+        color: #0d6efd;
+    }
+
+        .sidebar .nav-link:hover .bi {
+            color: #0d6efd;
+        }
+
+    .sidebar .nav-link.active {
+        color: #0d6efd;
+        background-color: #e7f1ff;
+    }
+
+        .sidebar .nav-link.active .bi {
+            color: #0d6efd;
+        }
+
+.sidebar-header {
+    padding: 1.5rem 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #343a40;
+}
+
+/* Top Navbar */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.08);
+    background-color: #fff;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: #0d6efd !important;
+}
+
+.navbar .form-control {
+    border-radius: 20px;
+}
+
+.navbar .dropdown-menu {
+    border: none;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
+}
+
+/* New styles for action buttons */
+.action-button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    min-height: calc(100vh - 120px); /* Full viewport height minus navbar */
+    padding: 2rem;
+}
+
+.action-btn {
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 1.5rem 2rem;
+    border-radius: 0.75rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+    .action-btn .bi {
+        font-size: 1.75rem;
+        margin-right: 1rem;
+    }
+
+    .action-btn:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+    }
+
+@media (min-width: 768px) {
+    .action-button-container {
+        flex-direction: row;
+    }
+}
+
+/* Responsive adjustments */
+.sidebar-toggler {
+    display: none;
+}
+
+/* THIS IS THE CORRECT LOCATION FOR THE @media CODE */
+@media (max-width: 991.98px) {
+    .sidebar {
+        left: -260px;
+    }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .sidebar-toggler {
+        display: block;
+    }
+}
