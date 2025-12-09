@@ -1,0 +1,65 @@
+﻿@model List<Attendence>
+<div class="container">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">My Attendance History</h2>
+        </div>
+    </div>
+
+    <br />
+
+    @if (Model.Count > 0)
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Student Name
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Date & Time
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model.OrderByDescending(u => u.DateTime))
+                {
+                    <tr>
+                        <td>
+                            @if (obj.Student != null)
+                            {
+                                @obj.Student.Name
+                            }
+                            else
+                            {
+                                <span>@obj.Studentid (Name Unavailable)</span>
+                            }
+                        </td>
+
+                        <td>
+                            @if (obj.status == "Present")
+                            {
+                                <span class="badge bg-success">Present</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">@obj.status</span>
+                            }
+                        </td>
+
+                        <td>@obj.DateTime.ToString("dd MMM yyyy - hh:mm tt")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            No attendance records found for your account.
+        </div>
+    }
+</div>

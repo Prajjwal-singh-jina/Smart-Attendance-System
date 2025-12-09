@@ -196,6 +196,21 @@ namespace bolonotoproxy.Controllers
 
             return View();
         }
+        public IActionResult View_student()
+        {
+            var token = TempData["AuthToken"] as string;
+            TempData.Keep("AuthToken");
+            var tokenRecord = _db.UserTokens.FirstOrDefault(t => t.TokenValue == token);
+            var userAttendance = _db.Mark_Attendence
+                .Include(a => a.Student) // <--- FIX 1: Loads the Student Data
+                .Where(a => a.Student.signupID == tokenRecord.UserId) // <--- FIX 2: Filters in Database
+                .ToList();
+
+
+
+            return View(userAttendance);  
+        }
+
     }
 
 
